@@ -5,7 +5,7 @@ import java.util.*;
 public class User {
 	private User() {
 		days=new ArrayList<>();
-		foodList=new ArrayList<>(); //TODO: update to import txt on init
+		foodList=new ArrayList<>();
 		//WIP
 	}
 	
