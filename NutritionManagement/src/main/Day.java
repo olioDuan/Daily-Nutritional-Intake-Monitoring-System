@@ -29,4 +29,20 @@ public class Day {
 				.collect(Collectors.toCollection(ArrayList::new));
 		return NutritionCalculator.accumulateNutritionValue(nutritions);
 	}
+
+	/**
+	 * Add food portion if the food type is new, else update
+	 * 
+	 * @param food
+	 * @param quantity
+	 */
+	public void upsertFoodPortion(Food food, double quantity) {
+		FoodPortion searchResult = this.foodPortions.stream()
+				.filter(foodPortion -> foodPortion.getName().equals(food.getName())).findFirst().orElse(null);
+		if (searchResult == null) {
+			this.foodPortions.add(new FoodPortion(food, quantity));
+		} else {
+			searchResult.setQuantity(quantity);
+		}
+	}
 }

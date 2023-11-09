@@ -1,6 +1,7 @@
 package main;
 
 public class FoodPortion {
+
     public FoodPortion(Food food, double quantity) {
         this.food = food;
         this.quantity = quantity;
@@ -16,5 +17,13 @@ public class FoodPortion {
                 unitNutritionValue.getProtein() * quantity,
                 unitNutritionValue.getCarbs() * quantity,
                 unitNutritionValue.getFat() * quantity);
+    }
+
+    public String getName() {
+        return this.food.getName();
+    }
+    
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
     }
 }
