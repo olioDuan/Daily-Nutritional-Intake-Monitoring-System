@@ -1,9 +1,6 @@
 package calculation;
 
 import java.util.*;
-import java.util.stream.DoubleStream;
-import java.util.stream.Stream;
-
 import main.*;
 
 public class NutritionCalculator {
