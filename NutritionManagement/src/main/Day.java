@@ -1,18 +1,22 @@
 package main;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 import java.util.*;
 import java.util.stream.Collectors;
 import calculation.NutritionCalculator;
+import exceptions.InvalidDateException;
 
 public class Day {
-	public Day(String dateString) {
+	public Day(String dateString) throws InvalidDateException {
 		// WIP
 		try {
-			this.date = LocalDate.parse(dateString);
+			this.date = LocalDate.parse(dateString, DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
 			this.foodPortions = new ArrayList<>();
-		} catch (Exception e) {
-
+		} catch (DateTimeParseException e) {
+			throw new InvalidDateException(String.format("Invalid date %s", dateString));
 		}
 
 	}

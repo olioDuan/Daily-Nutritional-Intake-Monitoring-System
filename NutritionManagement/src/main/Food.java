@@ -1,8 +1,9 @@
 package main;
 
 public class Food {
-	public Food() {
-		// WIP
+	public Food(String name, double calories, double protein, double carbs, double fat) {
+		this.name = name;
+		this.nutritionValue = new NutritionValue(calories, protein, carbs, fat);
 	}
 
 	private String name;
