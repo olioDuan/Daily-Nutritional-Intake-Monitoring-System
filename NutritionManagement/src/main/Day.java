@@ -45,4 +45,16 @@ public class Day {
 			searchResult.setQuantity(quantity);
 		}
 	}
+
+	public void deleteFoodPortion(FoodPortion foodPortion) {
+		this.foodPortions.remove(foodPortion);
+	}
+
+	public void deleteFoodPortion(String name) {
+		FoodPortion searchResult = this.foodPortions.stream()
+				.filter(foodPortion -> foodPortion.getName().equals(name)).findFirst().orElse(null);
+		if (searchResult!=null){
+			this.foodPortions.remove(searchResult);
+		}
+	}
 }
