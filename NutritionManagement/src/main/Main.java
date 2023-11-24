@@ -6,7 +6,6 @@ import java.util.*;
 //import io.OutputFormatter;
 //import main.NutritionValue;
 
-import calculation.NutritionCalculator;
 import exceptions.DayNotSelectedException;
 import exceptions.InsufficientArgumentsException;
 import io.InputParser;
