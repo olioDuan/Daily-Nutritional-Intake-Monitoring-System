@@ -6,9 +6,11 @@ import java.util.*;
 //import io.OutputFormatter;
 //import main.NutritionValue;
 
+import calculation.NutritionCalculator;
 import exceptions.DayNotSelectedException;
 import exceptions.InsufficientArgumentsException;
 import io.InputParser;
+import io.OutputFormatter;
 
 public class Main {
 
@@ -72,6 +74,15 @@ public class Main {
                     currentDay.deleteFoodPortion(cmdParts[1]);
                 } else if (cmd.equals("listFoodTypes")) {
                     user.listFoodTypes();
+                } else if (cmd.equals("listFoodPortions")) {
+                    if (currentDay == null)
+                        throw new DayNotSelectedException();
+                    currentDay.listFoodPortions();
+                } else if (cmd.equals("getTotal")) {
+                    if (currentDay == null)
+                        throw new DayNotSelectedException();
+                    NutritionValue total = currentDay.getTotalNutrition();
+                    OutputFormatter.printTotalNutritionValue(total);
                 } else if (cmd.equals("quit")) {
                     in.close();
                     break;
