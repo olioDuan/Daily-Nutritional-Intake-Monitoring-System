@@ -50,4 +50,7 @@ public class User {
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Day %s not found.", date)));
     }
 
+    public void listFoodTypes() {
+        this.foodList.stream().forEach(food -> System.out.println(food.toString()));
+    }
 }

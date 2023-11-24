@@ -17,4 +17,9 @@ public class Food {
 	public String getName() {
 		return name;
 	}
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s, Nutrition Values: (%s)",this.name,this.nutritionValue.toString());
+    }
 }

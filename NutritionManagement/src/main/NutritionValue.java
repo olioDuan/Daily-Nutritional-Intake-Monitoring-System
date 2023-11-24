@@ -28,4 +28,10 @@ public class NutritionValue {
     public double getFat() {
         return fat;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Calories: %s, Protein: %s, Carbs: %s, Fat: %s", this.calories, this.protein, this.carbs,
+                this.fat);
+    }
 }

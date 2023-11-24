@@ -36,6 +36,7 @@ public class Main {
                     case "addDay":
                     case "switchToDay":
                     case "importFoodTypes":
+                    case "removePortion":
                         if (cmdParts.length < 2) {
                             throw new InsufficientArgumentsException();
                         }
@@ -65,9 +66,17 @@ public class Main {
                     double amount = Double.parseDouble(cmdParts[2]);
                     Food food = user.getFoodType(foodName);
                     currentDay.upsertFoodPortion(food, amount);
+                } else if (cmd.equals("removePortion")) {
+                    if (currentDay == null)
+                        throw new DayNotSelectedException();
+                    currentDay.deleteFoodPortion(cmdParts[1]);
+                } else if (cmd.equals("listFoodTypes")) {
+                    user.listFoodTypes();
                 } else if (cmd.equals("quit")) {
                     in.close();
                     break;
+                } else {
+                    System.out.println("Unknown command.");
                 }
 
             } catch (Exception e) {
