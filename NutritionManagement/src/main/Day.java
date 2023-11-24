@@ -13,10 +13,10 @@ public class Day {
     public Day(String dateString) throws InvalidDateException {
         // WIP
         try {
-            this.date = LocalDate.parse(dateString, DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+            this.date = LocalDate.parse(dateString);
             this.foodPortions = new ArrayList<>();
         } catch (DateTimeParseException e) {
-            throw new InvalidDateException(String.format("Invalid date %s", dateString));
+            throw new InvalidDateException(e.getMessage());
         }
 
     }

@@ -1,5 +1,6 @@
 package main;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import calculation.NutritionCalculator;
@@ -47,7 +48,7 @@ public class User {
     }
 
     public Day findDay(String date) throws ResourceNotFoundException {
-        return this.days.stream().filter(day -> day.getDate().toString().equals(date)).findFirst()
+        return this.days.stream().filter(day -> day.getDate().equals(LocalDate.parse(date))).findFirst()
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Day %s not found.", date)));
     }
 
