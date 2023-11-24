@@ -22,7 +22,12 @@ public class Day {
 	}
 
 	private LocalDate date;
-	private ArrayList<FoodPortion> foodPortions;
+    
+	public LocalDate getDate() {
+        return date;
+    }
+
+    private ArrayList<FoodPortion> foodPortions;
 
 	public NutritionValue getTotalNutrition() {
 		ArrayList<NutritionValue> nutritions = foodPortions.stream().map(foodPortion -> foodPortion.getNutrition())
