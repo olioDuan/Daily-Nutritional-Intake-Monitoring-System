@@ -2,6 +2,7 @@ package main;
 
 import java.util.*;
 
+import calculation.NutritionCalculator;
 import exceptions.ResourceNotFoundException;
 
 public class User {
@@ -52,5 +53,9 @@ public class User {
 
     public void listFoodTypes() {
         this.foodList.stream().forEach(food -> System.out.println(food.toString()));
+    }
+
+    public NutritionValue getAverageNutritionValue() {
+        return NutritionCalculator.computeAverage(this.days);
     }
 }

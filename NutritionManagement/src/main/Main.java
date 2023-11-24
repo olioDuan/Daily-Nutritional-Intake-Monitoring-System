@@ -83,6 +83,9 @@ public class Main {
                         throw new DayNotSelectedException();
                     NutritionValue total = currentDay.getTotalNutrition();
                     OutputFormatter.printTotalNutritionValue(total);
+                } else if (cmd.equals("getAverage")) {
+                    NutritionValue average = user.getAverageNutritionValue();
+                    OutputFormatter.printAverageNutritionValue(average);
                 } else if (cmd.equals("quit")) {
                     in.close();
                     break;
