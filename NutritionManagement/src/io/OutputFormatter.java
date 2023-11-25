@@ -1,19 +1,21 @@
 package io;
 
+import calculation.NutritionCalculator;
 import main.NutritionValue;
 
 public class OutputFormatter {
     public static void printTotalNutritionValue(NutritionValue nutritionValue) {
+        NutritionValue percentageValue = NutritionCalculator.computePercentage(nutritionValue);
         System.out.println("Total Nutrition Value:");
         System.out.println("----------------------");
         System.out.println("Calories: " + formatDouble(nutritionValue.getCalories()) + " kcal, "
-                + formatPercentage(nutritionValue.getCalories()));
+                + formatPercentage(percentageValue.getCalories()));
         System.out.println("Protein: " + formatDouble(nutritionValue.getProtein()) + " g, "
-                + formatPercentage(nutritionValue.getProtein()));
+                + formatPercentage(percentageValue.getProtein()));
         System.out.println("Carbs: " + formatDouble(nutritionValue.getCarbs()) + " g, "
-                + formatPercentage(nutritionValue.getCarbs()));
+                + formatPercentage(percentageValue.getCarbs()));
         System.out.println("Fat: " + formatDouble(nutritionValue.getFat()) + " g, "
-                + formatPercentage(nutritionValue.getFat()));
+                + formatPercentage(percentageValue.getFat()));
         System.out.println();
     }
 

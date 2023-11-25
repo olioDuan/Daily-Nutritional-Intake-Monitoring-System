@@ -22,8 +22,13 @@ public class FoodPortion {
     public String getName() {
         return this.food.getName();
     }
-    
+
     public void setQuantity(double quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("Name: %s, Quantity: %.2f", this.getName(), this.quantity);
     }
 }

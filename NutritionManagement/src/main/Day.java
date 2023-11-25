@@ -10,51 +10,60 @@ import calculation.NutritionCalculator;
 import exceptions.InvalidDateException;
 
 public class Day {
-	public Day(String dateString) throws InvalidDateException {
-		// WIP
-		try {
-			this.date = LocalDate.parse(dateString, DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
-			this.foodPortions = new ArrayList<>();
-		} catch (DateTimeParseException e) {
-			throw new InvalidDateException(String.format("Invalid date %s", dateString));
-		}
+    public Day(String dateString) throws InvalidDateException {
+        // WIP
+        try {
+            this.date = LocalDate.parse(dateString);
+            this.foodPortions = new ArrayList<>();
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateException(e.getMessage());
+        }
 
-	}
+    }
 
-	private LocalDate date;
-	private ArrayList<FoodPortion> foodPortions;
+    private LocalDate date;
 
-	public NutritionValue getTotalNutrition() {
-		ArrayList<NutritionValue> nutritions = foodPortions.stream().map(foodPortion -> foodPortion.getNutrition())
-				.collect(Collectors.toCollection(ArrayList::new));
-		return NutritionCalculator.accumulateNutritionValue(nutritions);
-	}
+    public LocalDate getDate() {
+        return date;
+    }
 
-	/**
-	 * Add food portion if the food type is new, else update
-	 * 
-	 * @param food
-	 * @param quantity
-	 */
-	public void upsertFoodPortion(Food food, double quantity) {
-		FoodPortion searchResult = this.foodPortions.stream()
-				.filter(foodPortion -> foodPortion.getName().equals(food.getName())).findFirst().orElse(null);
-		if (searchResult == null) {
-			this.foodPortions.add(new FoodPortion(food, quantity));
-		} else {
-			searchResult.setQuantity(quantity);
-		}
-	}
+    private ArrayList<FoodPortion> foodPortions;
 
-	public void deleteFoodPortion(FoodPortion foodPortion) {
-		this.foodPortions.remove(foodPortion);
-	}
+    public NutritionValue getTotalNutrition() {
+        ArrayList<NutritionValue> nutritions = foodPortions.stream().map(foodPortion -> foodPortion.getNutrition())
+                .collect(Collectors.toCollection(ArrayList::new));
+        return NutritionCalculator.accumulateNutritionValue(nutritions);
+    }
 
-	public void deleteFoodPortion(String name) {
-		FoodPortion searchResult = this.foodPortions.stream()
-				.filter(foodPortion -> foodPortion.getName().equals(name)).findFirst().orElse(null);
-		if (searchResult!=null){
-			this.foodPortions.remove(searchResult);
-		}
-	}
+    /**
+     * Add food portion if the food type is new, else update
+     * 
+     * @param food
+     * @param quantity
+     */
+    public void upsertFoodPortion(Food food, double quantity) {
+        FoodPortion searchResult = this.foodPortions.stream()
+                .filter(foodPortion -> foodPortion.getName().equals(food.getName())).findFirst().orElse(null);
+        if (searchResult == null) {
+            this.foodPortions.add(new FoodPortion(food, quantity));
+        } else {
+            searchResult.setQuantity(quantity);
+        }
+    }
+
+    public void deleteFoodPortion(FoodPortion foodPortion) {
+        this.foodPortions.remove(foodPortion);
+    }
+
+    public void deleteFoodPortion(String name) {
+        FoodPortion searchResult = this.foodPortions.stream()
+                .filter(foodPortion -> foodPortion.getName().equals(name)).findFirst().orElse(null);
+        if (searchResult != null) {
+            this.foodPortions.remove(searchResult);
+        }
+    }
+
+    public void listFoodPortions() {
+        this.foodPortions.stream().forEach(portion -> System.out.println(portion.toString()));
+    }
 }
