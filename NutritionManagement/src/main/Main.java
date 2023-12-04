@@ -1,11 +1,8 @@
 package main;
 
-//import io.InputParser;
-//import main.Food;
 import java.util.*;
-//import io.OutputFormatter;
-//import main.NutritionValue;
 
+import calculation.RecommendationSystem;
 import exceptions.DayNotSelectedException;
 import exceptions.InsufficientArgumentsException;
 import io.InputParser;
@@ -14,16 +11,10 @@ import io.OutputFormatter;
 public class Main {
 
     public static void main(String[] args) {
-        // TODO Auto-generated method stub
-        // String filePath = "path/to/your/input/file.txt";
-        // ArrayList<Food> foods = InputParser.parseInputFoodFile(filePath);
-        // OutputFormatter.printTotalNutritionValue(totalNutritionValue);
-        // OutputFormatter.printAverageNutritionValue(averageNutritionValue);
 
         Scanner in = new Scanner(System.in);
 
-        User user = User.getInstance(); // TODO: Use command pattern?
-
+        User user = User.getInstance();
         Day currentDay = null;
 
         while (true) {
@@ -53,13 +44,18 @@ public class Main {
                     Day day = new Day(cmdParts[1]);
                     user.addDay(day);
                     currentDay = day;
+                    System.out.printf("Day added. Current day is: %s\n", currentDay.toString());
                 } else if (cmd.equals("switchToDay")) {
                     Day day = user.findDay(cmdParts[1]);
                     currentDay = day;
+                    System.out.printf("Switched to day %s\n", currentDay.toString());
+                } else if (cmd.equals("listDays")) {
+                    user.listDays();
                 } else if (cmd.equals("importFoodTypes")) {
                     String foodFilePath = cmdParts[1];
                     ArrayList<Food> foodTypes = InputParser.parseInputFoodFile(foodFilePath);
                     foodTypes.stream().forEach(food -> user.addFoodType(food));
+                    System.out.println("Food types imported");
                 } else if (cmd.equals("addPortion")) {
                     if (currentDay == null)
                         throw new DayNotSelectedException();
@@ -67,10 +63,12 @@ public class Main {
                     double amount = Double.parseDouble(cmdParts[2]);
                     Food food = user.getFoodType(foodName);
                     currentDay.upsertFoodPortion(food, amount);
+                    System.out.println("Food portion added");
                 } else if (cmd.equals("removePortion")) {
                     if (currentDay == null)
                         throw new DayNotSelectedException();
                     currentDay.deleteFoodPortion(cmdParts[1]);
+                    System.out.printf("Food portion %s deleted\n", cmdParts[1]);
                 } else if (cmd.equals("listFoodTypes")) {
                     user.listFoodTypes();
                 } else if (cmd.equals("listFoodPortions")) {
@@ -85,6 +83,11 @@ public class Main {
                 } else if (cmd.equals("getAverage")) {
                     NutritionValue average = user.getAverageNutritionValue();
                     OutputFormatter.printAverageNutritionValue(average);
+                } else if (cmd.equals("getRecommendation")) {
+                    if (currentDay == null)
+                        throw new DayNotSelectedException();
+                    NutritionValue total = currentDay.getTotalNutrition();
+                    System.out.println(RecommendationSystem.generateRecommendation(total));
                 } else if (cmd.equals("quit")) {
                     in.close();
                     break;

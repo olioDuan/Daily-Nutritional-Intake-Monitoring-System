@@ -59,4 +59,8 @@ public class User {
     public NutritionValue getAverageNutritionValue() {
         return NutritionCalculator.computeAverage(this.days);
     }
+
+    public void listDays() {
+        this.days.stream().forEach(day -> System.out.println(day.toString()));
+    }
 }
