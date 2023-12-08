@@ -31,7 +31,7 @@ public class NutritionValue {
 
     @Override
     public String toString() {
-        return String.format("Calories: %s, Protein: %s, Carbs: %s, Fat: %s", this.calories, this.protein, this.carbs,
+        return String.format("Calories: %.2f, Protein: %.2f, Carbs: %.2f, Fat: %.2f", this.calories, this.protein, this.carbs,
                 this.fat);
     }
 }
