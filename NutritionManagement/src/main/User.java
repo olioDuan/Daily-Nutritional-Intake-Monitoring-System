@@ -21,6 +21,14 @@ public class User {
     private ArrayList<Day> days;
     private ArrayList<Food> foodList;
 
+    public ArrayList<Day> getDayList(){
+    	return this.days;
+    }
+    
+    public ArrayList<Food> getFoodList(){
+    	return this.foodList;
+    }
+    
     public void addFoodType(Food food) {
         this.foodList.add(food);
     }
