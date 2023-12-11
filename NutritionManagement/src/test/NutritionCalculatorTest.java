@@ -1,20 +1,22 @@
 package test;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.io.IOException;
 import java.lang.Math;
 
 import org.junit.Test;
-
-import com.sun.tools.javac.Main;
+import org.junit.jupiter.api.AfterAll;
 
 import java.io.*;
 import main.Day;
 import main.Food;
 import main.FoodPortion;
+import main.Main;
 import main.NutritionValue;
 import main.User;
 import calculation.NutritionCalculator;
@@ -48,6 +50,7 @@ public class NutritionCalculatorTest {
         assertEquals(expected.getProtein(), output.getProtein(), Math.ulp(1.0));
         assertEquals(expected.getCarbs(), output.getCarbs(), Math.ulp(1.0));
         assertEquals(expected.getFat(), output.getFat(), Math.ulp(1.0));
+        
     }
     
     @Test
@@ -771,7 +774,7 @@ public class NutritionCalculatorTest {
     
     @Test
     public void Test43_integrationTestRound2_17() throws InvalidDateException {
-    	String date = "2023-12-12";
+    	String date = "2023-01-01";
     	Day day = new Day(date);
     	User user = User.getInstance();
     	
@@ -779,14 +782,14 @@ public class NutritionCalculatorTest {
     	
     	ArrayList<Day> result = user.getDayList();
     	
-    	assertEquals(result.size(),1);
+    	assertEquals(result.size(), 1);
     	user.deleteDay(day);
     }
     
     @Test
     public void Test44_integrationTestRound2_18() throws InvalidDateException, ResourceNotFoundException {
-    	String date = "2023-12-12";
-    	String date2 = "2023-12-13";
+    	String date = "2023-02-01";
+    	String date2 = "2023-02-02";
     	Day day = new Day(date);
     	Day day2 = new Day(date2);
     	User user = User.getInstance();
@@ -795,7 +798,7 @@ public class NutritionCalculatorTest {
     	user.addDay(day2);
     	
     	String result = user.findDay(date2).toString();
-    	String expected = "2023-12-13";
+    	String expected = "2023-02-02";
     	
     	assertEquals(result, expected);
     	user.deleteDay(day);
@@ -804,8 +807,8 @@ public class NutritionCalculatorTest {
     
     @Test
     public void Test45_integrationTestRound2_19() throws InvalidDateException, ResourceNotFoundException {
-    	String date = "2023-12-12";
-    	String date2 = "2023-12-13";
+    	String date = "2023-04-03";
+    	String date2 = "2023-04-04";
     	Day day = new Day(date);
     	Day day2 = new Day(date2);
     	User user = User.getInstance();
@@ -863,9 +866,9 @@ public class NutritionCalculatorTest {
     public void Test48_integrationTestRound2_22() throws InvalidDateException, ResourceNotFoundException {
     	User user = User.getInstance();
     	
-    	String date = "2023-12-12";
-    	String date2 = "2023-12-13";
-    	String date3 = "2023-12-14";
+    	String date = "2023-05-12";
+    	String date2 = "2023-06-13";
+    	String date3 = "2023-07-11";
     	Day day = new Day(date);
     	Day day2 = new Day(date2);
     	Day day3 = new Day(date3);
@@ -903,7 +906,48 @@ public class NutritionCalculatorTest {
     }
     
     @Test
-    public void Test49_SystemTesting_1() throws Exception {
+    public void Test49_SystemTesting_1() {
+    	String input = "quit";
+    	InputStream in = new ByteArrayInputStream(input.getBytes());
+    	System.setIn(in);
+    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	System.setOut(new PrintStream(out));
+    	Main.main(new String[] {});
+    	
+    	
+    	String expected = "";
+    	
+    	assertEquals(expected, out.toString());
+    	
+    }
+    
+    @Test
+    public void Test50_SystemTesting_2() {
+    	String input = "addDay|2023-12-14\nquit";
+    	InputStream in = new ByteArrayInputStream(input.getBytes());
+    	System.setIn(in);
+    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	System.setOut(new PrintStream(out));
+    	Main.main(new String[] {});
+    	
+    	
+    	String expected = "Day added. Current day is: 2023-12-14\n";
+    	assertEquals(expected, out.toString());
+    	
+    }
+    
+    @Test
+    public void Test51_SystemTesting_3() {
+    	String input = "addDay|2002-11-12\naddDay|2002-11-15\nswitchToDay|2002-11-12\nquit";
+    	InputStream in = new ByteArrayInputStream(input.getBytes());
+    	System.setIn(in);
+    	ByteArrayOutputStream out = new ByteArrayOutputStream();
+    	System.setOut(new PrintStream(out));
+    	Main.main(new String[] {});
+    	
+    	
+    	String expected = "Day added. Current day is: 2002-11-12\nDay added. Current day is: 2002-11-15\nSwitched to day 2002-11-12\n";
+    	assertEquals(expected, out.toString());
     	
     }
 }
