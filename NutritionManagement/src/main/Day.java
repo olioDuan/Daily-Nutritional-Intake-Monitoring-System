@@ -64,6 +64,10 @@ public class Day {
         this.foodPortions.stream().forEach(portion -> System.out.println(portion.toString()));
     }
 
+    public ArrayList<FoodPortion> getFoodPortionList(){
+    	return this.foodPortions;
+    }
+
     @Override
     public String toString() {
         return this.date.toString();
